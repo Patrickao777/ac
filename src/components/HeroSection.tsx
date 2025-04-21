@@ -6,29 +6,25 @@ import { Banner } from "@/types";
 import { banners } from "@/data/products";
 import { getImageUrl } from "@/data/products";
 import { MapPin, Star, Clock, Truck } from "lucide-react";
+import { LocationDialog } from "./LocationDialog";
 
 export function HeroSection() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [showLocationDialog, setShowLocationDialog] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBanner((prev) => (prev + 1) % banners.length);
     }, 5000);
 
-    // Attempt to get user's location
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // For demonstration, you'd typically use a reverse geocoding service
-        // This is a simple placeholder
-        setUserLocation("São Paulo, SP");
-      }, (error) => {
-        console.error("Location access denied", error);
-      });
-    }
-
     return () => clearInterval(interval);
   }, []);
+
+  const handleLocationSet = (location: { lat: number; lng: number; address: string }) => {
+    setUserLocation(location.address);
+    setShowLocationDialog(false);
+  };
 
   const banner = banners[currentBanner];
 
@@ -45,9 +41,9 @@ export function HeroSection() {
       </div>
       
       {/* Content */}
-      <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
-        <div className="max-w-lg">
-          <div className="flex items-center space-x-2 mb-2 text-white">
+      <div className="relative h-full container mx-auto px-4 flex items-center justify-center">
+        <div className="text-center max-w-2xl">
+          <div className="flex items-center justify-center space-x-2 mb-2 text-white">
             <MapPin size={20} />
             <span>{userLocation || "Escolha sua localização"}</span>
           </div>
@@ -56,7 +52,7 @@ export function HeroSection() {
             Açaí Delivery
           </h1>
           
-          <div className="flex items-center space-x-4 text-white/90 mb-4">
+          <div className="flex items-center justify-center space-x-4 text-white/90 mb-4">
             <div className="flex items-center space-x-1">
               <Clock size={16} />
               <span>5-15 min</span>
@@ -67,12 +63,12 @@ export function HeroSection() {
             </div>
           </div>
           
-          <div className="flex items-center space-x-2 mb-4 text-white/90">
+          <div className="flex items-center justify-center space-x-2 mb-4 text-white/90">
             <Star size={20} fill="currentColor" className="text-yellow-400" />
             <span>4,9 (2116 avaliações)</span>
           </div>
           
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             <Button
               asChild
               size="lg"
@@ -110,6 +106,8 @@ export function HeroSection() {
           />
         ))}
       </div>
+
+      {showLocationDialog && <LocationDialog onLocationSet={handleLocationSet} />}
     </div>
   );
 }
