@@ -11,6 +11,8 @@ import { LocationDialog } from "./LocationDialog";
 export function HeroSection() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [userLocation, setUserLocation] = useState<string | null>(null);
+  const [userState, setUserState] = useState<string>("RS");
+  const [distance, setDistance] = useState<string | null>(null);
   const [showLocationDialog, setShowLocationDialog] = useState(true);
 
   useEffect(() => {
@@ -21,8 +23,9 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLocationSet = (location: { lat: number; lng: number; address: string }) => {
+  const handleLocationSet = (location: { lat: number; lng: number; address: string; distance: string }) => {
     setUserLocation(location.address);
+    setDistance(location.distance);
     setShowLocationDialog(false);
   };
 
@@ -45,7 +48,15 @@ export function HeroSection() {
         <div className="text-center max-w-2xl">
           <div className="flex items-center justify-center space-x-2 mb-2 text-white">
             <MapPin size={20} />
-            <span>{userLocation || "Escolha sua localização"}</span>
+            <span>
+              {userLocation || "Escolha sua localização"}
+              {userLocation && (
+                <>
+                  <br />
+                  {userState} • {distance} de você
+                </>
+              )}
+            </span>
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">

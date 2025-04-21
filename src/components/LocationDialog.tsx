@@ -4,13 +4,14 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { MapPin } from "lucide-react";
 import { useState } from "react";
 
 interface LocationDialogProps {
-  onLocationSet: (location: { lat: number; lng: number; address: string }) => void;
+  onLocationSet: (location: { lat: number; lng: number; address: string; distance: string }) => void;
 }
 
 export function LocationDialog({ onLocationSet }: LocationDialogProps) {
@@ -27,15 +28,32 @@ export function LocationDialog({ onLocationSet }: LocationDialogProps) {
             );
             const data = await response.json();
             
-            const address = data.display_name.split(',').slice(0, 2).join(',');
+            // Extract city and state
+            const city = data.address.city || 
+                         data.address.town || 
+                         data.address.village || 
+                         data.address.hamlet ||
+                         "Localidade próxima";
+            const state = data.address.state || "RS";
+            
+            // Create a fixed distance for nearby store
+            const distance = "1,6km";
             
             onLocationSet({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
-              address,
+              address: city,
+              distance: distance
             });
           } catch (error) {
             console.error("Error getting location:", error);
+            // Fallback to default location
+            onLocationSet({
+              lat: 0,
+              lng: 0,
+              address: "Tramandaí",
+              distance: "1,6km"
+            });
           } finally {
             setIsLoading(false);
           }
@@ -43,8 +61,24 @@ export function LocationDialog({ onLocationSet }: LocationDialogProps) {
         (error) => {
           console.error("Location access denied", error);
           setIsLoading(false);
+          // Fallback to default location if access is denied
+          onLocationSet({
+            lat: 0,
+            lng: 0,
+            address: "Tramandaí",
+            distance: "1,6km"
+          });
         }
       );
+    } else {
+      // Fallback for browsers without geolocation
+      setIsLoading(false);
+      onLocationSet({
+        lat: 0,
+        lng: 0,
+        address: "Tramandaí",
+        distance: "1,6km"
+      });
     }
   };
 
@@ -53,6 +87,9 @@ export function LocationDialog({ onLocationSet }: LocationDialogProps) {
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle className="text-center">Localização</DialogTitle>
+          <DialogDescription className="text-center">
+            Para encontrar a loja mais próxima
+          </DialogDescription>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4 py-4">
           <MapPin className="h-12 w-12 text-acai-600" />
