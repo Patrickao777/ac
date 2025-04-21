@@ -2,6 +2,21 @@ import { Product, Category, Banner } from "../types";
 
 export const products: Product[] = [
   {
+    id: "acai-ovo",
+    name: "Açaí Ovo 450g",
+    price: 24.99,
+    originalPrice: 44.99,
+    description: "Delicioso açaí 450g servido em ovo de chocolate com frutas frescas e complementos à sua escolha. Edição limitada!",
+    image: "/lovable-uploads/2751c739-3d1a-4ddc-9c5c-3d3176b8c731.png",
+    category: "especiais",
+    popular: true,
+    inStock: true,
+    isPromo: true,
+    rating: 5.0,
+    reviews: 42,
+    details: "Apenas 40 combos disponíveis! Não perca essa oportunidade!"
+  },
+  {
     id: "combo-1",
     name: "Combo 2 Açaís 300ml",
     price: 19.90,
