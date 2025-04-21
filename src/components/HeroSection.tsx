@@ -5,14 +5,27 @@ import { Link } from "react-router-dom";
 import { Banner } from "@/types";
 import { banners } from "@/data/products";
 import { getImageUrl } from "@/data/products";
+import { MapPin, Star, Clock, Truck } from "lucide-react";
 
 export function HeroSection() {
   const [currentBanner, setCurrentBanner] = useState(0);
+  const [userLocation, setUserLocation] = useState<string | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBanner((prev) => (prev + 1) % banners.length);
     }, 5000);
+
+    // Attempt to get user's location
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        // For demonstration, you'd typically use a reverse geocoding service
+        // This is a simple placeholder
+        setUserLocation("São Paulo, SP");
+      }, (error) => {
+        console.error("Location access denied", error);
+      });
+    }
 
     return () => clearInterval(interval);
   }, []);
@@ -34,19 +47,38 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative h-full container mx-auto px-4 flex flex-col justify-center">
         <div className="max-w-lg">
+          <div className="flex items-center space-x-2 mb-2 text-white">
+            <MapPin size={20} />
+            <span>{userLocation || "Escolha sua localização"}</span>
+          </div>
+          
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
-            {banner.title}
+            Açaí Delivery
           </h1>
-          <p className="text-lg md:text-xl text-white/90 mb-6">
-            {banner.subtitle}
-          </p>
+          
+          <div className="flex items-center space-x-4 text-white/90 mb-4">
+            <div className="flex items-center space-x-1">
+              <Clock size={16} />
+              <span>5-15 min</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <Truck size={16} />
+              <span>Pedido Mínimo R$ 10,00</span>
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-2 mb-4 text-white/90">
+            <Star size={20} fill="currentColor" className="text-yellow-400" />
+            <span>4,9 (2116 avaliações)</span>
+          </div>
+          
           <div className="flex flex-wrap gap-4">
             <Button
               asChild
               size="lg"
               className="bg-acai-600 hover:bg-acai-700 text-white font-semibold"
             >
-              <Link to={banner.buttonLink}>{banner.buttonText}</Link>
+              <Link to="/produtos">Fazer Pedido</Link>
             </Button>
             
             <Button
@@ -55,8 +87,13 @@ export function HeroSection() {
               size="lg"
               className="bg-white/10 border-white text-white hover:bg-white/20"
             >
-              <Link to="/categorias">Explorar Categorias</Link>
+              <Link to="/promocoes">Promoções</Link>
             </Button>
+          </div>
+          
+          <div className="mt-4 text-sm text-white/70">
+            Entrega Grátis para {userLocation || "sua região"}! 
+            Aproveite nossa promoção com preços irresistíveis 💜
           </div>
         </div>
       </div>
