@@ -1,6 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Product } from "@/types";
 import { useCart } from "@/context/CartContext";
@@ -24,7 +25,12 @@ export function ProductCard({ product }: ProductCardProps) {
   return (
     <Card className="overflow-hidden transition-all hover:shadow-lg">
       <Link to={`/produto/${product.id}`}>
-        <div className="aspect-square overflow-hidden">
+        <div className="relative aspect-square overflow-hidden">
+          {product.isMostSold && (
+            <Badge className="absolute top-2 right-2 bg-purple-500">
+              MAIS VENDIDO 💜
+            </Badge>
+          )}
           <img
             src={getImageUrl(product.image)}
             alt={product.name}
@@ -43,16 +49,21 @@ export function ProductCard({ product }: ProductCardProps) {
             {product.description}
           </p>
           
+          {product.details && (
+            <p className="text-sm text-purple-600 mb-2">
+              {product.details}
+            </p>
+          )}
+          
           <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-lg font-semibold text-acai-700">
-              {formatPrice(product.price)}
-            </span>
-            
             {product.originalPrice && (
               <span className="text-sm text-muted-foreground line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
+            <span className="text-lg font-semibold text-acai-700">
+              {formatPrice(product.price)}
+            </span>
           </div>
           
           {product.rating && (

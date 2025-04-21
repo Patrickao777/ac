@@ -1,122 +1,244 @@
-
 import { Product, Category, Banner } from "../types";
 
 export const products: Product[] = [
   {
-    id: "1",
-    name: "Açaí Tradicional 500ml",
-    price: 19.9,
-    description: "Açaí tradicional puro em tigela de 500ml, feito com a polpa original do Pará.",
+    id: "combo-1",
+    name: "Combo 2 Açaís 300ml",
+    price: 19.90,
+    originalPrice: 39.80,
+    description: "2 Copos Açaí 300ml com 9 Complementos Grátis",
     image: "/acai-tradicional.jpg",
-    category: "tradicional",
+    category: "combos",
     popular: true,
     inStock: true,
+    isPromo: true,
     rating: 4.9,
-    reviews: 156
+    reviews: 156,
+    details: "Pague 1, Leve 2 (Apenas Retirada)"
   },
   {
-    id: "2",
-    name: "Açaí com Banana 500ml",
-    price: 22.9,
-    description: "Açaí tradicional com banana fatiada em tigela de 500ml.",
-    image: "/acai-banana.jpg",
-    category: "frutas",
+    id: "combo-2",
+    name: "Combo 2 Açaís 500ml",
+    price: 22.90,
+    originalPrice: 43.80,
+    description: "2 Copos Açaí 500ml com 9 Complementos Grátis",
+    image: "/acai-500ml.jpg",
+    category: "combos",
     popular: true,
+    inStock: true,
+    isPromo: true,
+    rating: 4.8,
+    reviews: 142,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "combo-3",
+    name: "Combo 2 Açaís 700ml",
+    price: 26.90,
+    originalPrice: 53.80,
+    description: "2 Copos Açaí 700ml com 9 Complementos Grátis. Mais que o dobro do Combo 1 por apenas R$7 a mais!",
+    image: "/acai-700ml.jpg",
+    category: "combos",
+    popular: true,
+    inStock: true,
+    isPromo: true,
+    isMostSold: true,
+    rating: 5.0,
+    reviews: 289,
+    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!"
+  },
+  {
+    id: "combo-4",
+    name: "Combo 2 Açaís 1L",
+    price: 37.90,
+    originalPrice: 75.80,
+    description: "2 Copos Açaí 1L com 9 Complementos Grátis",
+    image: "/acai-1l.jpg",
+    category: "combos",
+    popular: true,
+    inStock: true,
+    isPromo: true,
+    rating: 4.9,
+    reviews: 178,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "combo-zero-1",
+    name: "Combo 2 Açaís Zero 300ml",
+    price: 22.90,
+    originalPrice: 45.80,
+    description: "2 Copos Açaí 300ml ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-300ml.jpg",
+    category: "combos-zero",
+    popular: true,
+    inStock: true,
+    isPromo: true,
+    rating: 4.7,
+    reviews: 98,
+    details: "Pague 1, Leve 2 - Zero Açúcar (Apenas Retirada)"
+  },
+  {
+    id: "combo-zero-2",
+    name: "Combo 2 Açaís Zero 500ml",
+    price: 25.90,
+    originalPrice: 49.80,
+    description: "2 Copos Açaí 500ml ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-500ml.jpg",
+    category: "combos-zero",
+    inStock: true,
+    isPromo: true,
+    rating: 4.8,
+    reviews: 87,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "combo-zero-3",
+    name: "Combo 2 Açaís Zero 700ml",
+    price: 29.90,
+    originalPrice: 59.80,
+    description: "2 Copos Açaí 700ml ZERO com 9 Complementos Grátis. Mais que o dobro do Combo 1 por apenas R$7 a mais!",
+    image: "/acai-zero-700ml.jpg",
+    category: "combos-zero",
+    popular: true,
+    inStock: true,
+    isPromo: true,
+    isMostSold: true,
+    rating: 4.9,
+    reviews: 156,
+    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!"
+  },
+  {
+    id: "combo-zero-4",
+    name: "Combo 2 Açaís Zero 1L",
+    price: 40.90,
+    originalPrice: 81.80,
+    description: "2 Copos Açaí 1L ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-1l.jpg",
+    category: "combos-zero",
+    inStock: true,
+    isPromo: true,
+    rating: 4.7,
+    reviews: 76,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "acai-1",
+    name: "Açaí 300ml",
+    price: 19.90,
+    description: "1 Copo Açaí 300ml com 9 Complementos Grátis",
+    image: "/acai-300ml.jpg",
+    category: "individual",
     inStock: true,
     rating: 4.8,
-    reviews: 142
+    reviews: 123,
+    details: "Apenas Retirada"
   },
   {
-    id: "3",
-    name: "Açaí com Morango 500ml",
-    price: 24.9,
-    description: "Açaí tradicional com morangos frescos em tigela de 500ml.",
-    image: "/acai-morango.jpg",
-    category: "frutas",
-    popular: true,
+    id: "acai-2",
+    name: "Açaí 500ml",
+    price: 22.90,
+    description: "1 Copo Açaí 500ml com 9 Complementos Grátis",
+    image: "/acai-500ml.jpg",
+    category: "individual",
     inStock: true,
     rating: 4.9,
-    reviews: 187
+    reviews: 145,
+    details: "Apenas Retirada"
   },
   {
-    id: "4",
-    name: "Açaí Premium 1L",
-    price: 34.9,
-    originalPrice: 39.9,
-    description: "Açaí premium em tigela de 1L, com granola, banana e mel.",
-    image: "/acai-premium.jpg",
-    category: "premium",
-    inStock: true,
-    rating: 5.0,
-    reviews: 98
-  },
-  {
-    id: "5",
-    name: "Açaí Whey Protein 500ml",
-    price: 29.9,
-    description: "Açaí com whey protein para atletas e praticantes de atividades físicas.",
-    image: "/acai-whey.jpg",
-    category: "especiais",
-    inStock: true,
-    rating: 4.7,
-    reviews: 76
-  },
-  {
-    id: "6",
-    name: "Açaí com Nutella 500ml",
-    price: 27.9,
-    description: "Açaí tradicional com generosa camada de Nutella.",
-    image: "/acai-nutella.jpg",
-    category: "especiais",
-    popular: true,
+    id: "acai-3",
+    name: "Açaí 700ml",
+    price: 26.90,
+    description: "1 Copo Açaí 700ml com 9 Complementos Grátis",
+    image: "/acai-700ml.jpg",
+    category: "individual",
     inStock: true,
     rating: 4.9,
-    reviews: 203
+    reviews: 167,
+    details: "Apenas Retirada"
   },
   {
-    id: "7",
-    name: "Açaí Zero Açúcar 500ml",
-    price: 23.9,
-    description: "Açaí sem adição de açúcar, ideal para dietas e diabéticos.",
-    image: "/acai-zero.jpg",
-    category: "especiais",
+    id: "acai-4",
+    name: "Açaí 1L",
+    price: 37.90,
+    description: "1 Copo Açaí 1L com 9 Complementos Grátis",
+    image: "/acai-1l.jpg",
+    category: "individual",
     inStock: true,
-    rating: 4.6,
-    reviews: 58
+    rating: 4.8,
+    reviews: 134,
+    details: "Apenas Retirada"
   },
   {
-    id: "8",
-    name: "Açaí Energético 500ml",
-    price: 26.9,
-    description: "Açaí com guaraná em pó e ginseng para mais energia no dia a dia.",
-    image: "/acai-energetico.jpg",
-    category: "especiais",
+    id: "acai-zero-1",
+    name: "Açaí Zero 300ml",
+    price: 22.90,
+    description: "1 Copo Açaí 300ml ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-300ml.jpg",
+    category: "individual-zero",
     inStock: true,
     rating: 4.7,
-    reviews: 82
+    reviews: 89,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "acai-zero-2",
+    name: "Açaí Zero 500ml",
+    price: 25.90,
+    description: "1 Copo Açaí 500ml ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-500ml.jpg",
+    category: "individual-zero",
+    inStock: true,
+    rating: 4.8,
+    reviews: 92,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "acai-zero-3",
+    name: "Açaí Zero 700ml",
+    price: 29.90,
+    description: "1 Copo Açaí 700ml ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-700ml.jpg",
+    category: "individual-zero",
+    inStock: true,
+    rating: 4.8,
+    reviews: 103,
+    details: "Apenas Retirada"
+  },
+  {
+    id: "acai-zero-4",
+    name: "Açaí Zero 1L",
+    price: 40.90,
+    description: "1 Copo Açaí 1L ZERO com 9 Complementos Grátis",
+    image: "/acai-zero-1l.jpg",
+    category: "individual-zero",
+    inStock: true,
+    rating: 4.7,
+    reviews: 78,
+    details: "Apenas Retirada"
   }
 ];
 
 export const categories: Category[] = [
   {
-    id: "tradicional",
-    name: "Tradicional",
-    image: "/categoria-tradicional.jpg"
+    id: "combos",
+    name: "Combos Promocionais",
+    image: "/categoria-combos.jpg"
   },
   {
-    id: "frutas",
-    name: "Com Frutas",
-    image: "/categoria-frutas.jpg"
+    id: "combos-zero",
+    name: "Combos Zero Açúcar",
+    image: "/categoria-zero.jpg"
   },
   {
-    id: "premium",
-    name: "Premium",
-    image: "/categoria-premium.jpg"
+    id: "individual",
+    name: "Açaí Individual",
+    image: "/categoria-individual.jpg"
   },
   {
-    id: "especiais",
-    name: "Especiais",
-    image: "/categoria-especiais.jpg"
+    id: "individual-zero",
+    name: "Açaí Zero Individual",
+    image: "/categoria-zero-individual.jpg"
   }
 ];
 
@@ -139,7 +261,6 @@ export const banners: Banner[] = [
   }
 ];
 
-// Placeholder image URLs - to be replaced with actual uploaded images
 const placeholders = {
   "/acai-tradicional.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
   "/acai-banana.jpg": "https://images.unsplash.com/photo-1611079829668-5b221fc41338?q=80&w=1000&auto=format&fit=crop",
@@ -155,9 +276,12 @@ const placeholders = {
   "/categoria-especiais.jpg": "https://images.unsplash.com/photo-1568625365631-98e50853b268?q=80&w=1000&auto=format&fit=crop",
   "/banner-principal.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
   "/banner-secundario.jpg": "https://images.unsplash.com/photo-1490323948693-c7ffed3f7e01?q=80&w=1000&auto=format&fit=crop",
+  "/categoria-combos.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
+  "/categoria-zero.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
+  "/categoria-individual.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
+  "/categoria-zero-individual.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?q=80&w=1000&auto=format&fit=crop",
 };
 
-// Function to get image placeholder
 export const getImageUrl = (path: string) => {
   return placeholders[path] || path;
 };

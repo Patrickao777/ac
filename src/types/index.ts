@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -11,6 +10,9 @@ export interface Product {
   inStock: boolean;
   rating?: number;
   reviews?: number;
+  isPromo?: boolean;
+  isMostSold?: boolean;
+  details?: string;
 }
 
 export interface CartItem {
