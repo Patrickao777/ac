@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useState, useEffect } from "react";
 import { brazilianStates, getBrazilianCitiesByState } from "@/data/locations";
 
@@ -96,18 +97,20 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
           
           {step === "state" ? (
             <div className="w-full">
-              <Select value={selectedState} onValueChange={handleStateSelect}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecione o estado" />
-                </SelectTrigger>
-                <SelectContent>
-                  {brazilianStates.map((state) => (
-                    <SelectItem key={state.uf} value={state.uf}>
-                      {state.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <ScrollArea className="h-[300px] w-full">
+                <Select value={selectedState} onValueChange={handleStateSelect}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Selecione o estado" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {brazilianStates.map((state) => (
+                      <SelectItem key={state.uf} value={state.uf}>
+                        {state.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </ScrollArea>
             </div>
           ) : (
             <div className="w-full space-y-4">
@@ -122,7 +125,7 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
                 />
               </div>
               
-              <div className="w-full max-h-60 overflow-y-auto border border-input rounded-md">
+              <ScrollArea className="h-[300px] w-full border border-input rounded-md">
                 {filteredCities.length === 0 ? (
                   <div className="p-4 text-center text-muted-foreground">
                     Nenhuma cidade encontrada
@@ -142,7 +145,7 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
                     ))}
                   </div>
                 )}
-              </div>
+              </ScrollArea>
             </div>
           )}
           
