@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -33,7 +32,6 @@ export function HeroSection() {
 
   return (
     <div className="relative h-[60vh] md:h-[70vh] bg-acai-900/5 overflow-hidden">
-      {/* Background Image with Purple Overlay */}
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{ 
@@ -43,7 +41,6 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-acai-900/80 to-acai-800/30"></div>
       </div>
       
-      {/* Content */}
       <div className="relative h-full container mx-auto px-4 flex items-center justify-center">
         <div className="text-center max-w-2xl">
           <div className="flex items-center justify-center space-x-2 mb-2 text-white">
@@ -79,6 +76,13 @@ export function HeroSection() {
             <span>4,9 (2116 avaliações)</span>
           </div>
           
+          <div className="flex items-center justify-center mb-4">
+            <div className="inline-flex items-center gap-2 bg-green-500/20 px-3 py-1 rounded-full">
+              <span className="text-white font-medium">ABERTO</span>
+              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+            </div>
+          </div>
+          
           <div className="flex flex-wrap justify-center gap-4">
             <Button
               asChild
@@ -99,13 +103,11 @@ export function HeroSection() {
           </div>
           
           <div className="mt-4 text-sm text-white/70">
-            Entrega Grátis para {userLocation || "sua região"}! 
             Aproveite nossa promoção com preços irresistíveis 💜
           </div>
         </div>
       </div>
       
-      {/* Indicators */}
       <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2">
         {banners.map((_, index) => (
           <button
