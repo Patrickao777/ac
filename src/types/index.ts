@@ -15,11 +15,6 @@ export interface Product {
   details?: string;
 }
 
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
 export interface Category {
   id: string;
   name: string;
@@ -33,4 +28,25 @@ export interface Banner {
   subtitle: string;
   buttonText: string;
   buttonLink: string;
+}
+
+export interface Topping {
+  id: string;
+  name: string;
+  category: 'coberturas' | 'frutas' | 'complementos' | 'turbine';
+  isFirstOrderFree?: boolean;
+}
+
+export interface CartItemToppings {
+  coberturas: string[];
+  frutas: string[];
+  complementos: string[];
+  turbine: string[];
+  additionalDetails?: string;
+}
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  toppings?: CartItemToppings;
 }

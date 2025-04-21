@@ -1,6 +1,6 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { CartItem, Product } from "../types";
+import { CartItem, Product, CartItemToppings } from "../types";
 import { toast } from "@/components/ui/use-toast";
 
 interface CartContextType {
@@ -8,6 +8,7 @@ interface CartContextType {
   addItem: (product: Product, quantity: number) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
+  updateToppings: (productId: string, toppings: CartItemToppings) => void;
   clearCart: () => void;
   totalItems: number;
   totalPrice: number;
@@ -18,11 +19,9 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
   
-  // Calculate cart totals
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = items.reduce((total, item) => total + (item.product.price * item.quantity), 0);
 
-  // Load cart from localStorage on component mount
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem("cart");
@@ -34,7 +33,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  // Save cart to localStorage whenever it changes
   useEffect(() => {
     try {
       localStorage.setItem("cart", JSON.stringify(items));
@@ -48,7 +46,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const existingItemIndex = prevItems.findIndex(item => item.product.id === product.id);
       
       if (existingItemIndex > -1) {
-        // Item already exists in cart, update quantity
         const updatedItems = [...prevItems];
         updatedItems[existingItemIndex].quantity += quantity;
         toast({
@@ -56,7 +53,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         });
         return updatedItems;
       } else {
-        // Add new item to cart
         toast({
           description: `${product.name} adicionado ao carrinho`,
         });
@@ -88,6 +84,17 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     });
   };
 
+  const updateToppings = (productId: string, toppings: CartItemToppings) => {
+    setItems(prevItems => {
+      return prevItems.map(item =>
+        item.product.id === productId ? { ...item, toppings } : item
+      );
+    });
+    toast({
+      description: "Complementos atualizados com sucesso",
+    });
+  };
+
   const clearCart = () => {
     setItems([]);
     toast({
@@ -100,6 +107,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     addItem,
     removeItem,
     updateQuantity,
+    updateToppings,
     clearCart,
     totalItems,
     totalPrice
