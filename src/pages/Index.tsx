@@ -1,7 +1,6 @@
 
 import { HeroSection } from "@/components/HeroSection";
 import { FeaturedProducts } from "@/components/FeaturedProducts";
-import { CategoriesSection } from "@/components/CategoriesSection";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
 import { CallToAction } from "@/components/CallToAction";
 import { Header } from "@/components/Header";
@@ -13,7 +12,6 @@ const Index = () => {
       <Header />
       <main className="flex-grow flex flex-col">
         <HeroSection />
-        <CategoriesSection />
         <FeaturedProducts />
         <TestimonialsSection />
         <CallToAction />
