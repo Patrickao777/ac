@@ -262,21 +262,21 @@ export const banners: Banner[] = [
 ];
 
 const placeholders = {
-  "/acai-tradicional.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&auto=format&fit=crop&q=80",
-  "/acai-300ml.jpg": "https://images.unsplash.com/photo-1590301157890-4810ed352733?w=800&auto=format&fit=crop&q=80",
-  "/acai-500ml.jpg": "https://images.unsplash.com/photo-1580223530509-849e0c3c3f33?w=800&auto=format&fit=crop&q=80",
-  "/acai-700ml.jpg": "https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?w=800&auto=format&fit=crop&q=80",
-  "/acai-1l.jpg": "https://images.unsplash.com/photo-1546039907-2d9e1bf2eeb9?w=800&auto=format&fit=crop&q=80",
-  "/acai-zero-300ml.jpg": "https://images.unsplash.com/photo-1579705379003-8e3682e4a8ac?w=800&auto=format&fit=crop&q=80",
-  "/acai-zero-500ml.jpg": "https://images.unsplash.com/photo-1502741126161-b048400d085d?w=800&auto=format&fit=crop&q=80",
-  "/acai-zero-700ml.jpg": "https://images.unsplash.com/photo-1581384647166-4b1f2d3dec3d?w=800&auto=format&fit=crop&q=80",
-  "/acai-zero-1l.jpg": "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&auto=format&fit=crop&q=80",
-  "/categoria-combos.jpg": "https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?w=800&auto=format&fit=crop&q=80",
-  "/categoria-zero.jpg": "https://images.unsplash.com/photo-1581384647166-4b1f2d3dec3d?w=800&auto=format&fit=crop&q=80",
-  "/categoria-individual.jpg": "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&auto=format&fit=crop&q=80",
-  "/categoria-zero-individual.jpg": "https://images.unsplash.com/photo-1579705379003-8e3682e4a8ac?w=800&auto=format&fit=crop&q=80",
-  "/banner-principal.jpg": "https://images.unsplash.com/photo-1638176066666-ffb2f013c7dd?w=1200&auto=format&fit=crop&q=80",
-  "/banner-secundario.jpg": "https://images.unsplash.com/photo-1581384647166-4b1f2d3dec3d?w=1200&auto=format&fit=crop&q=80",
+  "/acai-tradicional.jpg": "/lovable-uploads/c32fdd74-8acf-471e-af15-f151ca8db813.png",
+  "/acai-300ml.jpg": "/lovable-uploads/04f8d728-6e3b-4308-bbfa-9bc136fe20dc.png",
+  "/acai-500ml.jpg": "/lovable-uploads/d66e305f-10df-4f6e-9b39-f071f65e058a.png",
+  "/acai-700ml.jpg": "/lovable-uploads/f9fd4997-885a-4624-acec-a81d0ef53088.png",
+  "/acai-1l.jpg": "/lovable-uploads/d66e305f-10df-4f6e-9b39-f071f65e058a.png",
+  "/acai-zero-300ml.jpg": "/lovable-uploads/04f8d728-6e3b-4308-bbfa-9bc136fe20dc.png",
+  "/acai-zero-500ml.jpg": "/lovable-uploads/c32fdd74-8acf-471e-af15-f151ca8db813.png",
+  "/acai-zero-700ml.jpg": "/lovable-uploads/f9fd4997-885a-4624-acec-a81d0ef53088.png",
+  "/acai-zero-1l.jpg": "/lovable-uploads/d66e305f-10df-4f6e-9b39-f071f65e058a.png",
+  "/categoria-combos.jpg": "/lovable-uploads/f9fd4997-885a-4624-acec-a81d0ef53088.png",
+  "/categoria-zero.jpg": "/lovable-uploads/04f8d728-6e3b-4308-bbfa-9bc136fe20dc.png",
+  "/categoria-individual.jpg": "/lovable-uploads/d66e305f-10df-4f6e-9b39-f071f65e058a.png",
+  "/categoria-zero-individual.jpg": "/lovable-uploads/c32fdd74-8acf-471e-af15-f151ca8db813.png",
+  "/banner-principal.jpg": "/lovable-uploads/f9fd4997-885a-4624-acec-a81d0ef53088.png",
+  "/banner-secundario.jpg": "/lovable-uploads/d66e305f-10df-4f6e-9b39-f071f65e058a.png",
 };
 
 export const getImageUrl = (path: string) => {
