@@ -7,7 +7,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { MapPin } from "lucide-react";
+import { MapPin, Search } from "lucide-react";
 import { 
   Select,
   SelectContent,
@@ -28,16 +28,32 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
   const [selectedState, setSelectedState] = useState<string>(initialState || "RS");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [cities, setCities] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [filteredCities, setFilteredCities] = useState<string[]>([]);
   
   useEffect(() => {
     // When state changes, load cities for that state
     if (selectedState) {
       const stateCities = getBrazilianCitiesByState(selectedState);
       setCities(stateCities);
-      // Reset selected city when state changes
+      setFilteredCities(stateCities);
+      // Reset selected city and search term when state changes
       setSelectedCity("");
+      setSearchTerm("");
     }
   }, [selectedState]);
+
+  useEffect(() => {
+    // Filter cities based on search term
+    if (searchTerm.trim() === "") {
+      setFilteredCities(cities);
+    } else {
+      const filtered = cities.filter(city => 
+        city.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCities(filtered);
+    }
+  }, [searchTerm, cities]);
 
   const handleStateSelect = (value: string) => {
     setSelectedState(value);
@@ -45,6 +61,10 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
 
   const handleCitySelect = (value: string) => {
     setSelectedCity(value);
+  };
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
   };
 
   const handleNext = () => {
@@ -90,19 +110,39 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
               </Select>
             </div>
           ) : (
-            <div className="w-full">
-              <Select value={selectedCity} onValueChange={handleCitySelect}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecione a cidade" />
-                </SelectTrigger>
-                <SelectContent>
-                  {cities.map((city) => (
-                    <SelectItem key={city} value={city}>
-                      {city}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+            <div className="w-full space-y-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <input
+                  type="text"
+                  placeholder="Buscar cidade..."
+                  className="w-full pl-10 pr-4 py-2 border border-input rounded-md"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                />
+              </div>
+              
+              <div className="w-full max-h-60 overflow-y-auto border border-input rounded-md">
+                {filteredCities.length === 0 ? (
+                  <div className="p-4 text-center text-muted-foreground">
+                    Nenhuma cidade encontrada
+                  </div>
+                ) : (
+                  <div className="p-1">
+                    {filteredCities.map((city) => (
+                      <div
+                        key={city}
+                        className={`p-3 hover:bg-accent rounded-md cursor-pointer ${
+                          selectedCity === city ? "bg-accent" : ""
+                        }`}
+                        onClick={() => handleCitySelect(city)}
+                      >
+                        {city}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           )}
           
