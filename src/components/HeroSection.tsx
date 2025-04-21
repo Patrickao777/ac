@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -6,13 +7,17 @@ import { banners } from "@/data/products";
 import { getImageUrl } from "@/data/products";
 import { MapPin, Star, Clock, Truck } from "lucide-react";
 import { LocationDialog } from "./LocationDialog";
+import { StateSelectionDialog } from "./StateSelectionDialog";
+import { getStateName } from "@/data/locations";
 
 export function HeroSection() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [userState, setUserState] = useState<string>("RS");
+  const [userCity, setUserCity] = useState<string | null>(null);
   const [distance, setDistance] = useState<string | null>(null);
-  const [showLocationDialog, setShowLocationDialog] = useState(true);
+  const [showLocationDialog, setShowLocationDialog] = useState(false);
+  const [showStateSelection, setShowStateSelection] = useState(true);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,9 +31,21 @@ export function HeroSection() {
     setUserLocation(location.address);
     setDistance(location.distance);
     setShowLocationDialog(false);
+    setShowStateSelection(true); // Show state selection after getting approximate location
+  };
+
+  const handleStateAndCitySelected = (location: { state: string; city: string }) => {
+    setUserState(location.state);
+    setUserCity(location.city);
+    setUserLocation(location.city);
+    setShowStateSelection(false);
   };
 
   const banner = banners[currentBanner];
+
+  const handleLocationClick = () => {
+    setShowStateSelection(true);
+  };
 
   return (
     <div className="relative h-[60vh] md:h-[70vh] bg-acai-900/5 overflow-hidden">
@@ -43,15 +60,23 @@ export function HeroSection() {
       
       <div className="relative h-full container mx-auto px-4 flex items-center justify-center">
         <div className="text-center max-w-2xl">
-          <div className="flex items-center justify-center space-x-2 mb-2 text-white">
+          <div 
+            className="flex items-center justify-center space-x-2 mb-2 text-white cursor-pointer"
+            onClick={handleLocationClick}
+          >
             <MapPin size={20} />
             <span>
-              {userLocation || "Escolha sua localização"}
-              {userLocation && (
+              {userCity ? (
                 <>
-                  <br />
-                  {userState} • {distance} de você
+                  {userCity}, {getStateName(userState)}
                 </>
+              ) : (
+                "Escolha sua localização"
+              )}
+              {distance && (
+                <div className="text-sm text-white/80">
+                  {distance} de você
+                </div>
               )}
             </span>
           </div>
@@ -121,6 +146,7 @@ export function HeroSection() {
       </div>
 
       {showLocationDialog && <LocationDialog onLocationSet={handleLocationSet} />}
+      {showStateSelection && <StateSelectionDialog initialState={userState} onLocationSet={handleStateAndCitySelected} />}
     </div>
   );
 }
