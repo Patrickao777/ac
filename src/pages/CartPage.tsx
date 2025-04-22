@@ -45,6 +45,12 @@ const CartPage = () => {
     }
   };
 
+  const isPastDate = (date: Date) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  };
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -198,6 +204,7 @@ const CartPage = () => {
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
+              disabled={isPastDate}
               className="rounded-md border w-full pointer-events-auto"
             />
             <Input
