@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,6 +15,10 @@ const CartPage = () => {
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  };
+
+  const handleCheckout = () => {
+    window.location.href = "https://checkout.example.com";
   };
 
   if (items.length === 0) {
@@ -48,7 +51,6 @@ const CartPage = () => {
         <h1 className="text-3xl font-bold mb-8">Carrinho de Compras</h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
           <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm border">
               <div className="px-6 py-4 border-b">
@@ -84,7 +86,6 @@ const CartPage = () => {
             </div>
           </div>
 
-          {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-sm border p-6">
               <h2 className="font-semibold text-lg mb-4">Resumo do Pedido</h2>
@@ -121,6 +122,7 @@ const CartPage = () => {
 
               <Button 
                 className="w-full mt-6 bg-acai-600 hover:bg-acai-700"
+                onClick={handleCheckout}
               >
                 Finalizar Compra
               </Button>

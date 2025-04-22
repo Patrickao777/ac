@@ -1,6 +1,5 @@
 
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Twitter } from "lucide-react";
 
 export function Footer() {
   return (
@@ -15,17 +14,6 @@ export function Footer() {
             <p className="text-gray-400 mb-4">
               O melhor açaí do Brasil direto para sua casa. Qualidade premium e sabor inigualável.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -86,11 +74,11 @@ export function Footer() {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contato</h3>
             <address className="not-italic text-gray-400">
-              <p className="mb-2">Rua das Açaizeiras, 123</p>
-              <p className="mb-2">Belém, PA, Brasil</p>
-              <p className="mb-2">CEP: 66000-000</p>
-              <p className="mb-2">Telefone: (91) 3333-3333</p>
-              <p>Email: contato@acainacionalbrasil.com</p>
+              <p className="mb-2">Rua Principal, 123</p>
+              <p className="mb-2">Cidade, Estado</p>
+              <p className="mb-2">CEP: 00000-000</p>
+              <p className="mb-2">Telefone: (00) 0000-0000</p>
+              <p>Email: contato@exemplo.com</p>
             </address>
           </div>
         </div>
