@@ -65,6 +65,8 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
 
   const handleCitySelect = (value: string) => {
     setSelectedCity(value);
+    // After selecting a city, we can complete the location selection
+    onLocationSet({ state: selectedState, city: value });
   };
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
