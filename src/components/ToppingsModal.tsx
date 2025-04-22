@@ -28,7 +28,7 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    onSave(toppings); // Notifica o parent mas mantém modal aberto para pagamento/agendamento
+    onSave(toppings); // Notifica o parent mas mantém modal aberto
     setLoading(false);
   };
 
@@ -44,39 +44,39 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
                 onSave={handleSaveToppings}
               />
             ) : (
-              <div className="flex flex-col items-center gap-4 py-12">
+              <div className="flex flex-col items-center gap-4 py-8">
                 <span className="text-lg text-green-700 font-semibold mb-2">Complementos salvos!</span>
-                {/* Botões de pagar/agendar vão aparecer fora deste bloco */}
+                {/* Pergunta após salvar complementos */}
+                <span className="text-base font-medium text-gray-800 mb-4 text-center">
+                  Deseja que entregamos agora?
+                </span>
+                <div className="w-full flex flex-col sm:flex-row gap-2">
+                  {paymentLink && (
+                    <Button
+                      asChild
+                      className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold"
+                    >
+                      <a
+                        href={paymentLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Pagar agora"
+                      >
+                        <ShoppingBag className="mr-2 h-4 w-4" /> Sim, por favor!
+                      </a>
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    className="flex-1 border-2 border-red-600 text-red-700 hover:bg-red-50 font-semibold"
+                  >
+                    <Calendar className="mr-2 h-4 w-4" /> Não, quero agendar a entrega!
+                  </Button>
+                </div>
               </div>
             )}
           </div>
         </ScrollArea>
-        
-        {/* Mostrar os botões só depois de salvar complementos */}
-        {savedToppings && (
-          <div className="mt-4 pt-4 border-t flex flex-col sm:flex-row gap-2">
-            {paymentLink && (
-              <Button
-                asChild
-                className="bg-green-600 hover:bg-green-700 flex-1"
-              >
-                <a
-                  href={paymentLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <ShoppingBag className="mr-2 h-4 w-4" /> Pagar agora
-                </a>
-              </Button>
-            )}
-            <Button
-              variant="outline"
-              className="flex-1"
-            >
-              <Calendar className="mr-2 h-4 w-4" /> Agendar entrega
-            </Button>
-          </div>
-        )}
       </DialogContent>
     </Dialog>
   );
