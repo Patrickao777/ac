@@ -20,18 +20,20 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md max-h-[85vh] flex flex-col">
+      <DialogContent className="max-w-md max-h-[85vh] overflow-hidden flex flex-col">
         <h2 className="font-bold text-xl mb-2">Escolha os complementos</h2>
         <p className="text-muted-foreground mb-4">{product.name}</p>
         
-        <ScrollArea className="flex-grow pr-4 -mr-4">
-          <ToppingsSelector
-            onSave={(toppings) => {
-              setLoading(true);
-              onSave(toppings);
-              setLoading(false);
-            }}
-          />
+        <ScrollArea className="flex-grow overflow-auto pr-4">
+          <div className="pb-4">
+            <ToppingsSelector
+              onSave={(toppings) => {
+                setLoading(true);
+                onSave(toppings);
+                setLoading(false);
+              }}
+            />
+          </div>
         </ScrollArea>
         
         {paymentLink && (
