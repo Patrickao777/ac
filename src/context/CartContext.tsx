@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { toast } from "@/hooks/use-toast";
 import { Product } from "@/types";
@@ -5,6 +6,13 @@ import { Product } from "@/types";
 type CartItem = {
   product: Product;
   quantity: number;
+  toppings?: {
+    coberturas: string[];
+    frutas: string[];
+    complementos: string[];
+    turbine: string[];
+    additionalDetails?: string;
+  };
 };
 
 type CartState = {
@@ -16,14 +24,18 @@ type CartAction =
   | { type: 'ADD_ITEM'; payload: { product: Product; quantity: number } }
   | { type: 'REMOVE_ITEM'; payload: string }
   | { type: 'UPDATE_QUANTITY'; payload: { productId: string; quantity: number } }
+  | { type: 'UPDATE_TOPPINGS'; payload: { productId: string; toppings: CartItem['toppings'] } }
   | { type: 'CLEAR_CART' };
 
 type CartContextType = {
   items: CartItem[];
   total: number;
+  totalItems: number;
+  totalPrice: number;
   addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
+  updateToppings: (productId: string, toppings: CartItem['toppings']) => void;
   clearCart: () => void;
 };
 
@@ -85,6 +97,24 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       }
       return state;
 
+    case 'UPDATE_TOPPINGS':
+      const { productId: idToUpdate, toppings } = action.payload;
+      const toppingItemIndex = state.items.findIndex((item) => item.product.id === idToUpdate);
+      
+      if (toppingItemIndex !== -1) {
+        const updatedItems = [...state.items];
+        updatedItems[toppingItemIndex] = {
+          ...updatedItems[toppingItemIndex],
+          toppings
+        };
+        
+        return {
+          ...state,
+          items: updatedItems,
+        };
+      }
+      return state;
+
     case 'CLEAR_CART':
       return {
         ...state,
@@ -101,6 +131,12 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, initialState);
+
+  // Calculate totalItems
+  const totalItems = state.items.reduce((acc, item) => acc + item.quantity, 0);
+
+  // Calculate totalPrice (same as total)
+  const totalPrice = state.total;
 
   const addItem = (product: Product, quantity: number = 1) => {
     dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
@@ -121,12 +157,28 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'UPDATE_QUANTITY', payload: { productId, quantity } });
   };
 
+  const updateToppings = (productId: string, toppings: CartItem['toppings']) => {
+    dispatch({ type: 'UPDATE_TOPPINGS', payload: { productId, toppings } });
+  };
+
   const clearCart = () => {
     dispatch({ type: 'CLEAR_CART' });
   };
 
   return (
-    <CartContext.Provider value={{ ...state, addItem, removeItem, updateQuantity, clearCart }}>
+    <CartContext.Provider 
+      value={{ 
+        items: state.items, 
+        total: state.total,
+        totalItems,
+        totalPrice,
+        addItem, 
+        removeItem, 
+        updateQuantity,
+        updateToppings, 
+        clearCart 
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

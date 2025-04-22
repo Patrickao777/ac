@@ -27,7 +27,9 @@ const CartPage = () => {
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
 
-  const formatPrice = (price: number) => {
+  const formatPrice = (price: number | undefined) => {
+    // Add safety check to ensure price is a number
+    if (typeof price !== 'number') return 'R$ 0,00';
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
