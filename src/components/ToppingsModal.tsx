@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ToppingsSelector } from "./ToppingsSelector";
 import { CartItemToppings, Product } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -19,24 +19,33 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
   const [savedToppings, setSavedToppings] = useState<CartItemToppings | null>(null);
   const [loading, setLoading] = useState(false);
 
+  // Reset state when modal is closed
+  const handleCloseModal = () => {
+    setSavedToppings(null);
+    onClose();
+  };
+
   // Voltar para escolha de complementos caso precise
   const handleEdit = () => setSavedToppings(null);
 
+  const handleSaveToppings = (toppings: CartItemToppings) => {
+    setLoading(true);
+    setSavedToppings(toppings);
+    // Only notify parent component but don't close modal
+    onSave(toppings);
+    setLoading(false);
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
+    <Dialog open={open} onOpenChange={handleCloseModal}>
       <DialogContent className="max-w-md max-h-[85vh] overflow-hidden flex flex-col">
-        <h2 className="font-bold text-xl mb-2">Escolha os complementos</h2>
+        <DialogTitle className="text-xl font-bold">Escolha os complementos</DialogTitle>
         <p className="text-muted-foreground mb-4">{product.name}</p>
         <ScrollArea className="flex-grow overflow-auto pr-4">
           <div className="pb-4">
             {!savedToppings ? (
               <ToppingsSelector
-                onSave={(toppings) => {
-                  setLoading(true);
-                  setSavedToppings(toppings);
-                  onSave(toppings); // Só atualizar para fora, não fazer nada com carrinho.
-                  setLoading(false);
-                }}
+                onSave={handleSaveToppings}
               />
             ) : (
               <div className="flex flex-col items-center gap-4 py-12">
@@ -48,6 +57,7 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
             )}
           </div>
         </ScrollArea>
+        
         {/* Mostra botões só depois de salvar complementos */}
         {savedToppings && (
           <div className="mt-4 pt-4 border-t flex flex-col sm:flex-row gap-2">

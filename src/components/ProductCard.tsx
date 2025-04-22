@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Product } from "@/types";
-import { useCart } from "@/context/CartContext";
 import { getImageUrl } from "@/data/products";
 import { ToppingsModal } from "./ToppingsModal";
 import { CartItemToppings } from "@/types";
@@ -23,7 +22,7 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    setShowToppings(false);
+    console.log("Toppings saved:", toppings);
   };
 
   const formatPrice = (price: number) => {
