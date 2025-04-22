@@ -7,18 +7,36 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartItem } from "@/components/CartItem";
 import { useCart } from "@/context/CartContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 import { ShoppingCart, ArrowRight } from "lucide-react";
 
 const CartPage = () => {
   const { items, totalItems, totalPrice, clearCart } = useCart();
   const [couponCode, setCouponCode] = useState("");
+  const [showDeliveryDialog, setShowDeliveryDialog] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [selectedTime, setSelectedTime] = useState("");
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const handleCheckout = () => {
-    window.location.href = "https://checkout.example.com";
+  const handleImmediateDelivery = () => {
+    window.location.href = "https://checkout-immediate.example.com";
+  };
+
+  const handleScheduledDelivery = () => {
+    if (selectedDate && selectedTime) {
+      window.location.href = "https://checkout-scheduled.example.com";
+    }
   };
 
   if (items.length === 0) {
@@ -96,8 +114,8 @@ const CartPage = () => {
                   <span>{formatPrice(totalPrice)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Taxa de entrega</span>
-                  <span>{formatPrice(10)}</span>
+                  <span className="text-gray-600">Frete</span>
+                  <span className="text-green-600 font-medium">GRÁTIS</span>
                 </div>
 
                 <div className="pt-3">
@@ -116,13 +134,13 @@ const CartPage = () => {
 
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
-                  <span className="text-xl text-acai-700">{formatPrice(totalPrice + 10)}</span>
+                  <span className="text-xl text-acai-700">{formatPrice(totalPrice)}</span>
                 </div>
               </div>
 
               <Button 
                 className="w-full mt-6 bg-acai-600 hover:bg-acai-700"
-                onClick={handleCheckout}
+                onClick={() => setShowDeliveryDialog(true)}
               >
                 Finalizar Compra
               </Button>
@@ -135,6 +153,60 @@ const CartPage = () => {
         </div>
       </main>
       <Footer />
+
+      <Dialog open={showDeliveryDialog} onOpenChange={setShowDeliveryDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Deseja que entregamos agora?</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-4 py-4">
+            <Button 
+              className="bg-green-500 hover:bg-green-600 text-white"
+              onClick={handleImmediateDelivery}
+            >
+              Sim, por favor!
+            </Button>
+            <Button 
+              className="bg-red-500 hover:bg-red-600 text-white"
+              onClick={() => setShowDeliveryDialog(false)}
+            >
+              Não, quero agendar a entrega!
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={!showDeliveryDialog && !!selectedTime} onOpenChange={() => setSelectedTime("")}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Selecione o dia e a hora, por gentileza!</DialogTitle>
+            <DialogDescription>
+              Deixe seu pedido agendado e receba na hora combinada.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-4 py-4">
+            <Calendar
+              mode="single"
+              selected={selectedDate}
+              onSelect={setSelectedDate}
+              className="rounded-md border w-full"
+            />
+            <Input
+              type="time"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+              className="w-full"
+            />
+            <Button 
+              className="w-full bg-acai-600 hover:bg-acai-700"
+              onClick={handleScheduledDelivery}
+              disabled={!selectedDate || !selectedTime}
+            >
+              Agendar Pedido
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
