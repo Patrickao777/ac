@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,7 @@ export function Header() {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <div className="text-2xl font-bold text-acai-800">
-              Açaí <span className="text-acai-500">Nacional</span>
+              Açaí <span className="text-acai-500">Premium</span>
             </div>
           </Link>
 

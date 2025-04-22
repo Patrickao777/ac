@@ -9,7 +9,7 @@ export function Footer() {
           {/* Logo and Description */}
           <div className="col-span-1 md:col-span-1">
             <div className="text-2xl font-bold mb-4">
-              Açaí <span className="text-acai-400">Nacional</span>
+              Açaí <span className="text-acai-400">Premium</span>
             </div>
             <p className="text-gray-400 mb-4">
               O melhor açaí do Brasil direto para sua casa. Qualidade premium e sabor inigualável.
@@ -84,7 +84,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Açaí Nacional Brasil. Todos os direitos reservados.</p>
+          <p>&copy; {new Date().getFullYear()} Açaí Premium Brasil. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>
