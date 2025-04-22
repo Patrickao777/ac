@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,11 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    console.log("Toppings saved:", toppings);
+    // Redireciona direto para o pagamento após salvar toppings, caso o link exista
+    if (paymentLink) {
+      window.location.href = paymentLink;
+    }
+    setShowToppings(false);
   };
 
   const formatPrice = (price: number) => {
@@ -101,30 +106,13 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
         </CardContent>
         
         <CardFooter className="p-4 pt-0">
-          {buyLink ? (
-            <Button
-              asChild
-              variant="default"
-              className="w-full bg-acai-600 hover:bg-acai-700"
-            >
-              <a
-                href={buyLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full h-full text-center"
-              >
-                Comprar
-              </a>
-            </Button>
-          ) : (
-            <Button 
-              onClick={handleComprarClick}
-              variant="default"
-              className="w-full bg-acai-600 hover:bg-acai-700"
-            >
-              Comprar
-            </Button>
-          )}
+          <Button 
+            onClick={handleComprarClick}
+            variant="default"
+            className="w-full bg-acai-600 hover:bg-acai-700"
+          >
+            Comprar
+          </Button>
         </CardFooter>
       </Card>
       <ToppingsModal
