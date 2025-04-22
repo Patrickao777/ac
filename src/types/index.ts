@@ -1,3 +1,4 @@
+
 export interface Product {
   id: string;
   name: string;
@@ -13,6 +14,8 @@ export interface Product {
   isPromo?: boolean;
   isMostSold?: boolean;
   details?: string;
+  paymentLink?: string;
+  scheduleLink?: string;
 }
 
 export interface Category {

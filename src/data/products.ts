@@ -1,4 +1,60 @@
-import { Product } from "@/types";
+
+import { Product, Category, Banner } from "@/types";
+
+// Helper function to get image URLs
+export const getImageUrl = (filename: string): string => {
+  return `/lovable-uploads/${filename}`;
+};
+
+export const categories: Category[] = [
+  {
+    id: "tradicional",
+    name: "Tradicional",
+    image: "acai-tradicional.png"
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    image: "acai-premium.png"
+  },
+  {
+    id: "frutas",
+    name: "Com Frutas",
+    image: "acai-com-frutas.png"
+  },
+  {
+    id: "especiais",
+    name: "Especiais",
+    image: "acai-turbinado.png"
+  }
+];
+
+export const banners: Banner[] = [
+  {
+    id: "1",
+    image: "acai-tradicional.png",
+    title: "Promoção de Açaí",
+    subtitle: "Até 30% de desconto em todos os açaís",
+    buttonText: "Ver ofertas",
+    buttonLink: "/produtos"
+  },
+  {
+    id: "2",
+    image: "acai-premium.png",
+    title: "Açaí Premium",
+    subtitle: "Experimente nosso açaí premium com ingredientes especiais",
+    buttonText: "Comprar agora",
+    buttonLink: "/produto/2"
+  },
+  {
+    id: "3",
+    image: "acai-com-frutas.png",
+    title: "Açaí com Frutas",
+    subtitle: "Delicioso açaí com uma seleção de frutas frescas",
+    buttonText: "Comprar agora",
+    buttonLink: "/produto/3"
+  }
+];
 
 export const products: Product[] = [
   {
