@@ -9,9 +9,10 @@ import { getImageUrl } from "@/data/products";
 
 interface ProductCardProps {
   product: Product;
+  buyLink?: string;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, buyLink }: ProductCardProps) {
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
@@ -93,13 +94,30 @@ export function ProductCard({ product }: ProductCardProps) {
       </CardContent>
       
       <CardFooter className="p-4 pt-0">
-        <Button 
-          onClick={handleAddToCart}
-          variant="default"
-          className="w-full bg-acai-600 hover:bg-acai-700"
-        >
-          Adicionar ao Carrinho
-        </Button>
+        {buyLink ? (
+          <Button
+            asChild
+            variant="default"
+            className="w-full bg-acai-600 hover:bg-acai-700"
+          >
+            <a
+              href={buyLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full h-full text-center"
+            >
+              Comprar
+            </a>
+          </Button>
+        ) : (
+          <Button 
+            onClick={handleAddToCart}
+            variant="default"
+            className="w-full bg-acai-600 hover:bg-acai-700"
+          >
+            Comprar
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
