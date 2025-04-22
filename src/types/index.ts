@@ -13,6 +13,7 @@ export interface Product {
   isPromo?: boolean;
   isMostSold?: boolean;
   details?: string;
+  scheduleLink?: string;
 }
 
 export interface Category {

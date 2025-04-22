@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -55,6 +56,7 @@ const ProductDetail = () => {
   };
 
   const paymentLink = `https://payment.example.com/product/${product.id}`;
+  const scheduleLink = product.scheduleLink;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -368,6 +370,7 @@ const ProductDetail = () => {
         onSave={handleSaveToppings}
         product={product}
         paymentLink={paymentLink}
+        scheduleLink={scheduleLink}
       />
     </div>
   );

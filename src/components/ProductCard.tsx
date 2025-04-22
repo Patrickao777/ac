@@ -13,9 +13,10 @@ interface ProductCardProps {
   product: Product;
   buyLink?: string;
   paymentLink?: string;
+  scheduleLink?: string;
 }
 
-export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps) {
+export function ProductCard({ product, buyLink, paymentLink, scheduleLink }: ProductCardProps) {
   const [showToppings, setShowToppings] = useState(false);
 
   const handleComprarClick = () => {
@@ -23,9 +24,6 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    // Agora NÃO fechamos o modal aqui, pois isso acontece
-    // após a seleção do método de pagamento na modal
-    // O redirecionamento será feito pelos links nos botões
     setShowToppings(false);
   };
 
@@ -33,9 +31,8 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  // Gerar um link de pagamento único para cada produto
-  // Este link pode ser sobrescrito via props se necessário
   const uniquePaymentLink = paymentLink || `https://payment.example.com/product/${product.id}`;
+  const uniqueScheduleLink = scheduleLink || product.scheduleLink;
 
   return (
     <>
@@ -124,6 +121,7 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
         onSave={handleSaveToppings}
         product={product}
         paymentLink={uniquePaymentLink}
+        scheduleLink={uniqueScheduleLink}
       />
     </>
   );

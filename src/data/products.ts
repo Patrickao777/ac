@@ -14,7 +14,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 5.0,
     reviews: 42,
-    details: "Apenas 40 combos disponíveis! Não perca essa oportunidade!"
+    details: "Apenas 40 combos disponíveis! Não perca essa oportunidade!",
+    scheduleLink: "/agendar-entrega/acai-ovo"
   },
   {
     id: "combo-1",
@@ -29,7 +30,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.9,
     reviews: 156,
-    details: "Pague 1, Leve 2 (Apenas Retirada)"
+    details: "Pague 1, Leve 2 (Apenas Retirada)",
+    scheduleLink: "/agendar-entrega/combo-1"
   },
   {
     id: "combo-2",
@@ -44,7 +46,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.8,
     reviews: 142,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/combo-2"
   },
   {
     id: "combo-3",
@@ -60,7 +63,8 @@ export const products: Product[] = [
     isMostSold: true,
     rating: 5.0,
     reviews: 289,
-    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!"
+    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!",
+    scheduleLink: "/agendar-entrega/combo-3"
   },
   {
     id: "combo-4",
@@ -75,7 +79,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.9,
     reviews: 178,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/combo-4"
   },
   {
     id: "combo-zero-1",
@@ -90,7 +95,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.7,
     reviews: 98,
-    details: "Pague 1, Leve 2 - Zero Açúcar (Apenas Retirada)"
+    details: "Pague 1, Leve 2 - Zero Açúcar (Apenas Retirada)",
+    scheduleLink: "/agendar-entrega/combo-zero-1"
   },
   {
     id: "combo-zero-2",
@@ -104,7 +110,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.8,
     reviews: 87,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/combo-zero-2"
   },
   {
     id: "combo-zero-3",
@@ -120,7 +127,8 @@ export const products: Product[] = [
     isMostSold: true,
     rating: 4.9,
     reviews: 156,
-    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!"
+    details: "A maioria dos clientes escolhe esse porque é o melhor custo-benefício!",
+    scheduleLink: "/agendar-entrega/combo-zero-3"
   },
   {
     id: "combo-zero-4",
@@ -134,7 +142,8 @@ export const products: Product[] = [
     isPromo: true,
     rating: 4.7,
     reviews: 76,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/combo-zero-4"
   },
   {
     id: "acai-1",
@@ -146,7 +155,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.8,
     reviews: 123,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-1"
   },
   {
     id: "acai-2",
@@ -158,7 +168,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.9,
     reviews: 145,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-2"
   },
   {
     id: "acai-3",
@@ -170,7 +181,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.9,
     reviews: 167,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-3"
   },
   {
     id: "acai-4",
@@ -182,7 +194,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.8,
     reviews: 134,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-4"
   },
   {
     id: "acai-zero-1",
@@ -194,7 +207,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.7,
     reviews: 89,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-zero-1"
   },
   {
     id: "acai-zero-2",
@@ -206,7 +220,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.8,
     reviews: 92,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-zero-2"
   },
   {
     id: "acai-zero-3",
@@ -218,7 +233,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.8,
     reviews: 103,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-zero-3"
   },
   {
     id: "acai-zero-4",
@@ -230,7 +246,8 @@ export const products: Product[] = [
     inStock: true,
     rating: 4.7,
     reviews: 78,
-    details: "Apenas Retirada"
+    details: "Apenas Retirada",
+    scheduleLink: "/agendar-entrega/acai-zero-4"
   }
 ];
 

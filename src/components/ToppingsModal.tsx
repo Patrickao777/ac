@@ -12,6 +12,7 @@ interface ToppingsModalProps {
   onSave: (toppings: CartItemToppings) => void;
   product: Product;
   paymentLink?: string;
+  scheduleLink?: string;
 }
 
 export function ToppingsModal({
@@ -20,13 +21,15 @@ export function ToppingsModal({
   onSave,
   product,
   paymentLink,
+  scheduleLink,
 }: ToppingsModalProps) {
   const [savedToppings, setSavedToppings] = useState<CartItemToppings | null>(null);
   const [loading, setLoading] = useState(false);
 
   // Links editáveis para redirecionamento
-  const scheduleLink = "/agendar-entrega"; // <-- edite aqui para o link de agendamento
-  const payNowLink = paymentLink || `https://payment.example.com/product/${product.id}`; // <-- link de pagamento único por produto
+  const defaultScheduleLink = "/agendar-entrega"; 
+  const scheduleHref = scheduleLink || product.scheduleLink || defaultScheduleLink;
+  const payNowLink = paymentLink || `https://payment.example.com/product/${product.id}`;
 
   // Reset state when modal is closed
   const handleCloseModal = () => {
@@ -37,12 +40,9 @@ export function ToppingsModal({
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    // Não chamamos mais onSave aqui para evitar o fechamento do modal
     setLoading(false);
   };
 
-  // Função para finalizar o processo e chamar onSave apenas quando o usuário
-  // clicar em um dos botões de redirecionamento
   const handlePaymentOption = () => {
     if (savedToppings) {
       onSave(savedToppings);
@@ -88,7 +88,7 @@ export function ToppingsModal({
                     onClick={handlePaymentOption}
                   >
                     <a
-                      href={scheduleLink}
+                      href={scheduleHref}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label="Agendar entrega"
