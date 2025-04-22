@@ -58,6 +58,9 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
 
   const handleStateSelect = (value: string) => {
     setSelectedState(value);
+    if (step === "state") {
+      setStep("city");
+    }
   };
 
   const handleCitySelect = (value: string) => {
@@ -97,20 +100,20 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
           
           {step === "state" ? (
             <div className="w-full">
-              <ScrollArea className="h-[300px] w-full">
-                <Select value={selectedState} onValueChange={handleStateSelect}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione o estado" />
-                  </SelectTrigger>
-                  <SelectContent>
+              <Select value={selectedState} onValueChange={handleStateSelect}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione o estado" />
+                </SelectTrigger>
+                <SelectContent>
+                  <ScrollArea className="h-72">
                     {brazilianStates.map((state) => (
                       <SelectItem key={state.uf} value={state.uf}>
                         {state.name}
                       </SelectItem>
                     ))}
-                  </SelectContent>
-                </Select>
-              </ScrollArea>
+                  </ScrollArea>
+                </SelectContent>
+              </Select>
             </div>
           ) : (
             <div className="w-full space-y-4">
@@ -125,27 +128,29 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
                 />
               </div>
               
-              <ScrollArea className="h-[300px] w-full border border-input rounded-md">
-                {filteredCities.length === 0 ? (
-                  <div className="p-4 text-center text-muted-foreground">
-                    Nenhuma cidade encontrada
-                  </div>
-                ) : (
+              <div className="w-full border border-input rounded-md">
+                <ScrollArea className="h-72">
                   <div className="p-1">
-                    {filteredCities.map((city) => (
-                      <div
-                        key={city}
-                        className={`p-3 hover:bg-accent rounded-md cursor-pointer ${
-                          selectedCity === city ? "bg-accent" : ""
-                        }`}
-                        onClick={() => handleCitySelect(city)}
-                      >
-                        {city}
+                    {filteredCities.length === 0 ? (
+                      <div className="p-4 text-center text-muted-foreground">
+                        Nenhuma cidade encontrada
                       </div>
-                    ))}
+                    ) : (
+                      filteredCities.map((city) => (
+                        <div
+                          key={city}
+                          className={`p-3 hover:bg-accent rounded-md cursor-pointer ${
+                            selectedCity === city ? "bg-accent" : ""
+                          }`}
+                          onClick={() => handleCitySelect(city)}
+                        >
+                          {city}
+                        </div>
+                      ))
+                    )}
                   </div>
-                )}
-              </ScrollArea>
+                </ScrollArea>
+              </div>
             </div>
           )}
           
