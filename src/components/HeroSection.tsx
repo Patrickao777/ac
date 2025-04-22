@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Banner } from "@/types";
@@ -9,7 +10,11 @@ import { LocationDialog } from "./LocationDialog";
 import { StateSelectionDialog } from "./StateSelectionDialog";
 import { getStateName } from "@/data/locations";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  featuredProductsRef: React.RefObject<HTMLDivElement>;
+}
+
+export function HeroSection({ featuredProductsRef }: HeroSectionProps) {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [userLocation, setUserLocation] = useState<string | null>(null);
   const [userState, setUserState] = useState<string>("RS");
@@ -17,7 +22,6 @@ export function HeroSection() {
   const [distance, setDistance] = useState<string | null>(null);
   const [showLocationDialog, setShowLocationDialog] = useState(false);
   const [showStateSelection, setShowStateSelection] = useState(true);
-  const featuredProductsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -86,7 +90,7 @@ export function HeroSection() {
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
-            Açaí Delivery
+            Açaí Premium
           </h1>
           
           <div className="flex items-center justify-center space-x-4 text-white/90 mb-4">
