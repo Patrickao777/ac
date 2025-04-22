@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,16 +10,18 @@ import { useCart } from "@/context/CartContext";
 import { products } from "@/data/products";
 import { getImageUrl } from "@/data/products";
 import { Minus, Plus, ShoppingCart, Heart } from "lucide-react";
+import { ToppingsModal } from "@/components/ToppingsModal";
+import { CartItemToppings } from "@/types";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { addItem } = useCart();
+  const { addItem, updateToppings } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [showToppings, setShowToppings] = useState(false);
 
   // Find the current product
   const product = products.find(p => p.id === id);
 
-  // If product not found
   if (!product) {
     return (
       <div className="min-h-screen flex flex-col">
@@ -52,8 +53,16 @@ const ProductDetail = () => {
     setQuantity(q => (q > 1 ? q - 1 : 1));
   };
 
-  const handleAddToCart = () => {
-    addItem(product, quantity);
+  const handleComprarClick = () => {
+    setShowToppings(true);
+  };
+
+  const handleSaveToppings = (toppings: CartItemToppings) => {
+    for (let i = 0; i < quantity; i++) {
+      addItem(product, 1);
+      updateToppings(product.id, toppings);
+    }
+    setShowToppings(false);
   };
 
   const formatPrice = (price: number) => {
@@ -177,10 +186,10 @@ const ProductDetail = () => {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
-                  onClick={handleAddToCart} 
+                  onClick={handleComprarClick} 
                   className="bg-acai-600 hover:bg-acai-700 flex-1"
                 >
-                  <ShoppingCart className="mr-2 h-4 w-4" /> Adicionar ao Carrinho
+                  <ShoppingCart className="mr-2 h-4 w-4" /> Comprar
                 </Button>
                 
                 <Button variant="outline" className="sm:flex-none">
