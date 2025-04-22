@@ -106,14 +106,12 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione o estado" />
                 </SelectTrigger>
-                <SelectContent>
-                  <ScrollArea className="h-72">
-                    {brazilianStates.map((state) => (
-                      <SelectItem key={state.uf} value={state.uf}>
-                        {state.name}
-                      </SelectItem>
-                    ))}
-                  </ScrollArea>
+                <SelectContent className="max-h-72 overflow-y-auto">
+                  {brazilianStates.map((state) => (
+                    <SelectItem key={state.uf} value={state.uf}>
+                      {state.name}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -131,7 +129,7 @@ export function StateSelectionDialog({ initialState, onLocationSet }: StateSelec
               </div>
               
               <div className="w-full border border-input rounded-md">
-                <ScrollArea className="h-72">
+                <ScrollArea className="h-72 w-full">
                   <div className="p-1">
                     {filteredCities.length === 0 ? (
                       <div className="p-4 text-center text-muted-foreground">
