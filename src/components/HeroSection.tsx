@@ -1,5 +1,4 @@
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Banner } from "@/types";
@@ -18,6 +17,7 @@ export function HeroSection() {
   const [distance, setDistance] = useState<string | null>(null);
   const [showLocationDialog, setShowLocationDialog] = useState(false);
   const [showStateSelection, setShowStateSelection] = useState(true);
+  const featuredProductsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,7 +31,7 @@ export function HeroSection() {
     setUserLocation(location.address);
     setDistance(location.distance);
     setShowLocationDialog(false);
-    setShowStateSelection(true); // Show state selection after getting approximate location
+    setShowStateSelection(true);
   };
 
   const handleStateAndCitySelected = (location: { state: string; city: string }) => {
@@ -39,6 +39,10 @@ export function HeroSection() {
     setUserCity(location.city);
     setUserLocation(location.city);
     setShowStateSelection(false);
+  };
+
+  const handlePromocaoClick = () => {
+    featuredProductsRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   const banner = banners[currentBanner];
@@ -118,12 +122,12 @@ export function HeroSection() {
             </Button>
             
             <Button
-              asChild
+              onClick={handlePromocaoClick}
               variant="outline"
               size="lg"
               className="bg-white/10 border-white text-white hover:bg-white/20"
             >
-              <Link to="/promocoes">Promoções</Link>
+              Promoções
             </Button>
           </div>
           
