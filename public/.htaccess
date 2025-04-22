@@ -8,3 +8,27 @@
   RewriteCond %{REQUEST_FILENAME} !-l
   RewriteRule . /index.html [L]
 </IfModule>
+
+# Adicionar tipos MIME corretos para JavaScript
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType application/javascript .mjs
+  AddType text/javascript .js
+  AddType text/javascript .mjs
+</IfModule>
+
+# Forçar o tipo MIME para arquivos JavaScript
+<FilesMatch "\.js$">
+  ForceType application/javascript
+</FilesMatch>
+
+<FilesMatch "\.mjs$">
+  ForceType application/javascript
+</FilesMatch>
+
+# Desativar verificação estrita de MIME para scripts
+<IfModule mod_headers.c>
+  <FilesMatch "\.(js|mjs)$">
+    Header set X-Content-Type-Options ""
+  </FilesMatch>
+</IfModule>
