@@ -5,7 +5,6 @@ import { ToppingsSelector } from "./ToppingsSelector";
 import { CartItemToppings, Product } from "@/types";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Calendar } from "lucide-react";
 
 interface ToppingsModalProps {
   open: boolean;
@@ -15,9 +14,19 @@ interface ToppingsModalProps {
   paymentLink?: string;
 }
 
-export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: ToppingsModalProps) {
+export function ToppingsModal({
+  open,
+  onClose,
+  onSave,
+  product,
+  paymentLink,
+}: ToppingsModalProps) {
   const [savedToppings, setSavedToppings] = useState<CartItemToppings | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Links editáveis para redirecionamento
+  const scheduleLink = "/agendar-entrega"; // <-- edite aqui para o link de agendamento
+  const payNowLink = paymentLink || "/pagar-agora"; // <-- edite aqui para o link de pagamento
 
   // Reset state when modal is closed
   const handleCloseModal = () => {
@@ -28,7 +37,7 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    onSave(toppings); // Notifica o parent mas mantém modal aberto para pagamento/agendamento
+    onSave(toppings); // Notifica o parent mas mantém modal aberto para exibir opções
     setLoading(false);
   };
 
@@ -40,37 +49,42 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
         <ScrollArea className="flex-grow overflow-auto pr-4">
           <div className="pb-4">
             {!savedToppings ? (
-              <ToppingsSelector
-                onSave={handleSaveToppings}
-              />
+              <ToppingsSelector onSave={handleSaveToppings} />
             ) : (
               <div className="flex flex-col items-center gap-4 py-8">
-                <span className="text-lg text-green-700 font-semibold mb-2">Complementos salvos!</span>
-                {/* Pergunta após salvar complementos */}
-                <span className="text-base font-medium text-gray-800 mb-4 text-center">
+                <span className="text-lg text-green-700 font-semibold mb-4">
+                  Complementos salvos!
+                </span>
+                <span className="text-base font-medium text-gray-800 mb-2 text-center">
                   Deseja que entregamos agora?
                 </span>
-                <div className="w-full flex flex-col sm:flex-row gap-2">
-                  {paymentLink && (
-                    <Button
-                      asChild
-                      className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold"
-                    >
-                      <a
-                        href={paymentLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Pagar agora"
-                      >
-                        <ShoppingBag className="mr-2 h-4 w-4" /> Sim, por favor!
-                      </a>
-                    </Button>
-                  )}
+                <div className="w-full flex flex-col gap-2">
                   <Button
-                    variant="outline"
-                    className="flex-1 border-2 border-red-600 text-red-700 hover:bg-red-50 font-semibold"
+                    asChild
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 text-lg"
                   >
-                    <Calendar className="mr-2 h-4 w-4" /> Não, quero agendar a entrega!
+                    <a
+                      href={payNowLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Pagar agora"
+                    >
+                      Pagar agora
+                    </a>
+                  </Button>
+                  <Button
+                    asChild
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 text-lg"
+                    variant="outline"
+                  >
+                    <a
+                      href={scheduleLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Agendar entrega"
+                    >
+                      Não, quero agendar a entrega
+                    </a>
                   </Button>
                 </div>
               </div>
@@ -81,3 +95,4 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
     </Dialog>
   );
 }
+
