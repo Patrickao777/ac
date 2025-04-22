@@ -25,14 +25,10 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
     onClose();
   };
 
-  // Voltar para escolha de complementos caso precise
-  const handleEdit = () => setSavedToppings(null);
-
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    // Only notify parent component but don't close modal
-    onSave(toppings);
+    onSave(toppings); // Notifica o parent mas mantém modal aberto para pagamento/agendamento
     setLoading(false);
   };
 
@@ -50,15 +46,13 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
             ) : (
               <div className="flex flex-col items-center gap-4 py-12">
                 <span className="text-lg text-green-700 font-semibold mb-2">Complementos salvos!</span>
-                <Button variant="outline" onClick={handleEdit} className="w-full">
-                  Editar complementos
-                </Button>
+                {/* Botões de pagar/agendar vão aparecer fora deste bloco */}
               </div>
             )}
           </div>
         </ScrollArea>
         
-        {/* Mostra botões só depois de salvar complementos */}
+        {/* Mostrar os botões só depois de salvar complementos */}
         {savedToppings && (
           <div className="mt-4 pt-4 border-t flex flex-col sm:flex-row gap-2">
             {paymentLink && (
@@ -71,7 +65,7 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <ShoppingBag className="mr-2 h-4 w-4" /> Ir para pagamento
+                  <ShoppingBag className="mr-2 h-4 w-4" /> Pagar agora
                 </a>
               </Button>
             )}
