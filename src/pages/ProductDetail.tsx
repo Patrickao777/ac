@@ -54,8 +54,7 @@ const ProductDetail = () => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const paymentLink = product.paymentLink || `https://payment.example.com/product/${product.id}`;
-  const scheduleLink = product.scheduleLink || `https://schedule.example.com/product/${product.id}`;
+  const paymentLink = `https://payment.example.com/product/${product.id}`;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -369,7 +368,6 @@ const ProductDetail = () => {
         onSave={handleSaveToppings}
         product={product}
         paymentLink={paymentLink}
-        scheduleLink={scheduleLink}
       />
     </div>
   );
