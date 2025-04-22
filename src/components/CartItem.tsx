@@ -1,7 +1,6 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { CartItem as CartItemType } from "@/types";
 import { useCart } from "@/context/CartContext";
 import { getImageUrl } from "@/data/products";
@@ -13,31 +12,9 @@ interface CartItemProps {
 }
 
 export function CartItem({ item }: CartItemProps) {
-  const { updateQuantity, removeItem, updateToppings } = useCart();
-  const [quantity, setQuantity] = useState(item.quantity);
+  const { removeItem, updateToppings } = useCart();
   const [showToppings, setShowToppings] = useState(false);
   
-  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = parseInt(e.target.value);
-    if (isNaN(newQuantity) || newQuantity < 1) return;
-    
-    setQuantity(newQuantity);
-    updateQuantity(item.product.id, newQuantity);
-  };
-
-  const incrementQuantity = () => {
-    const newQuantity = quantity + 1;
-    setQuantity(newQuantity);
-    updateQuantity(item.product.id, newQuantity);
-  };
-
-  const decrementQuantity = () => {
-    if (quantity <= 1) return;
-    const newQuantity = quantity - 1;
-    setQuantity(newQuantity);
-    updateQuantity(item.product.id, newQuantity);
-  };
-
   const handleRemove = () => {
     removeItem(item.product.id);
   };
@@ -93,37 +70,7 @@ export function CartItem({ item }: CartItemProps) {
           </Button>
         </div>
         
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center">
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 rounded-r-none"
-              onClick={decrementQuantity}
-            >
-              -
-            </Button>
-            
-            <Input
-              type="number"
-              min="1"
-              value={quantity}
-              onChange={handleQuantityChange}
-              className="h-8 w-12 rounded-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-            />
-            
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 rounded-l-none"
-              onClick={incrementQuantity}
-            >
-              +
-            </Button>
-          </div>
-          
+        <div>
           <Button
             type="button"
             variant="ghost"
@@ -150,3 +97,4 @@ export function CartItem({ item }: CartItemProps) {
     </div>
   );
 }
+

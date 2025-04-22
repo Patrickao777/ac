@@ -2,21 +2,19 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Input } from "@/components/ui/input";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { ProductCard } from "@/components/ProductCard";
 import { useCart } from "@/context/CartContext";
 import { products } from "@/data/products";
 import { getImageUrl } from "@/data/products";
-import { Minus, Plus, ShoppingCart, Heart } from "lucide-react";
+import { ShoppingCart, Heart } from "lucide-react";
 import { ToppingsModal } from "@/components/ToppingsModal";
 import { CartItemToppings } from "@/types";
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { addItem, updateToppings } = useCart();
-  const [quantity, setQuantity] = useState(1);
   const [showToppings, setShowToppings] = useState(false);
 
   const product = products.find(p => p.id === id);
@@ -43,30 +41,20 @@ const ProductDetail = () => {
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
 
-  const incrementQuantity = () => {
-    setQuantity(q => q + 1);
-  };
-
-  const decrementQuantity = () => {
-    setQuantity(q => (q > 1 ? q - 1 : 1));
-  };
-
   const handleComprarClick = () => {
     setShowToppings(true);
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    for (let i = 0; i < quantity; i++) {
-      addItem(product, 1);
-      updateToppings(product.id, toppings);
-    }
+    addItem(product);
+    updateToppings(product.id, toppings);
   };
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const paymentLink = `https://payment.example.com/product/${product.id}?quantity=${quantity}`;
+  const paymentLink = `https://payment.example.com/product/${product.id}`;
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -146,39 +134,6 @@ const ProductDetail = () => {
             </div>
 
             <div className="pt-4 border-t">
-              <div className="mb-4">
-                <h2 className="font-semibold mb-2">Quantidade</h2>
-                <div className="flex w-32">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    className="h-10 w-10 rounded-r-none"
-                    onClick={decrementQuantity}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  
-                  <Input
-                    type="number"
-                    min="1"
-                    value={quantity}
-                    onChange={(e) => setQuantity(parseInt(e.target.value) || 1)}
-                    className="h-10 w-14 rounded-none text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
-                  />
-                  
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="icon"
-                    className="h-10 w-10 rounded-l-none"
-                    onClick={incrementQuantity}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={handleComprarClick} 
