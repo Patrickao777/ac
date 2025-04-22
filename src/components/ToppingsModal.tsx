@@ -28,7 +28,7 @@ export function ToppingsModal({ open, onClose, onSave, product, paymentLink }: T
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    onSave(toppings); // Notifica o parent mas mantém modal aberto
+    onSave(toppings); // Notifica o parent mas mantém modal aberto para pagamento/agendamento
     setLoading(false);
   };
 
