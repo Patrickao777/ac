@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ const CartPage = () => {
   const { items, totalItems, totalPrice, clearCart } = useCart();
   const [couponCode, setCouponCode] = useState("");
   const [showDeliveryDialog, setShowDeliveryDialog] = useState(false);
+  const [showScheduleDialog, setShowScheduleDialog] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState("");
 
@@ -168,7 +170,10 @@ const CartPage = () => {
             </Button>
             <Button 
               className="bg-red-500 hover:bg-red-600 text-white"
-              onClick={() => setShowDeliveryDialog(false)}
+              onClick={() => {
+                setShowDeliveryDialog(false);
+                setShowScheduleDialog(true);
+              }}
             >
               Não, quero agendar a entrega!
             </Button>
@@ -176,7 +181,7 @@ const CartPage = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={!showDeliveryDialog && !!selectedTime} onOpenChange={() => setSelectedTime("")}>
+      <Dialog open={showScheduleDialog} onOpenChange={setShowScheduleDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Selecione o dia e a hora, por gentileza!</DialogTitle>
@@ -189,7 +194,7 @@ const CartPage = () => {
               mode="single"
               selected={selectedDate}
               onSelect={setSelectedDate}
-              className="rounded-md border w-full"
+              className="rounded-md border w-full pointer-events-auto"
             />
             <Input
               type="time"
@@ -198,7 +203,7 @@ const CartPage = () => {
               className="w-full"
             />
             <Button 
-              className="w-full bg-acai-600 hover:bg-acai-700"
+              className="w-full bg-green-500 hover:bg-green-600 text-white"
               onClick={handleScheduledDelivery}
               disabled={!selectedDate || !selectedTime}
             >
