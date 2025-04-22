@@ -23,16 +23,19 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    // Redireciona direto para o pagamento após salvar toppings, caso o link exista
-    if (paymentLink) {
-      window.location.href = paymentLink;
-    }
+    // Agora NÃO fechamos o modal aqui, pois isso acontece
+    // após a seleção do método de pagamento na modal
+    // O redirecionamento será feito pelos links nos botões
     setShowToppings(false);
   };
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
+
+  // Gerar um link de pagamento único para cada produto
+  // Este link pode ser sobrescrito via props se necessário
+  const uniquePaymentLink = paymentLink || `https://payment.example.com/product/${product.id}`;
 
   return (
     <>
@@ -120,7 +123,7 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
         onClose={() => setShowToppings(false)}
         onSave={handleSaveToppings}
         product={product}
-        paymentLink={paymentLink}
+        paymentLink={uniquePaymentLink}
       />
     </>
   );

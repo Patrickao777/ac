@@ -19,7 +19,6 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [showToppings, setShowToppings] = useState(false);
 
-  // Find the current product
   const product = products.find(p => p.id === id);
 
   if (!product) {
@@ -40,7 +39,6 @@ const ProductDetail = () => {
     );
   }
 
-  // Find related products (same category)
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
@@ -62,20 +60,18 @@ const ProductDetail = () => {
       addItem(product, 1);
       updateToppings(product.id, toppings);
     }
-    setShowToppings(false);
   };
 
   const formatPrice = (price: number) => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
-  const paymentLink = `https://payment.example.com/product/${product.id}`;
+  const paymentLink = `https://payment.example.com/product/${product.id}?quantity=${quantity}`;
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-8">
-        {/* Breadcrumb */}
         <nav className="text-sm mb-6">
           <ol className="list-none p-0 inline-flex">
             <li className="flex items-center">
@@ -90,9 +86,7 @@ const ProductDetail = () => {
           </ol>
         </nav>
 
-        {/* Product Details */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {/* Product Image */}
           <div className="bg-gray-100 rounded-lg overflow-hidden">
             <img 
               src={getImageUrl(product.image)} 
@@ -101,7 +95,6 @@ const ProductDetail = () => {
             />
           </div>
 
-          {/* Product Info */}
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold">{product.name}</h1>
@@ -223,7 +216,6 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        {/* Tabs: Description, Details, Reviews */}
         <Tabs defaultValue="descricao" className="mb-12">
           <TabsList className="border-b w-full justify-start rounded-none gap-4">
             <TabsTrigger value="descricao" className="rounded-none data-[state=active]:border-b-2 data-[state=active]:border-acai-600 data-[state=active]:text-acai-700 data-[state=active]:shadow-none">
@@ -402,7 +394,6 @@ const ProductDetail = () => {
           </TabsContent>
         </Tabs>
 
-        {/* Related Products */}
         {relatedProducts.length > 0 && (
           <section>
             <h2 className="text-2xl font-bold mb-6">Produtos Relacionados</h2>
@@ -416,7 +407,6 @@ const ProductDetail = () => {
       </main>
       <Footer />
       
-      {/* Modal para complementos */}
       <ToppingsModal
         open={showToppings}
         onClose={() => setShowToppings(false)}

@@ -26,7 +26,7 @@ export function ToppingsModal({
 
   // Links editáveis para redirecionamento
   const scheduleLink = "/agendar-entrega"; // <-- edite aqui para o link de agendamento
-  const payNowLink = paymentLink || "/pagar-agora"; // <-- edite aqui para o link de pagamento
+  const payNowLink = paymentLink || `https://payment.example.com/product/${product.id}`; // <-- link de pagamento único por produto
 
   // Reset state when modal is closed
   const handleCloseModal = () => {
@@ -37,8 +37,16 @@ export function ToppingsModal({
   const handleSaveToppings = (toppings: CartItemToppings) => {
     setLoading(true);
     setSavedToppings(toppings);
-    onSave(toppings); // Notifica o parent mas mantém modal aberto para exibir opções
+    // Não chamamos mais onSave aqui para evitar o fechamento do modal
     setLoading(false);
+  };
+
+  // Função para finalizar o processo e chamar onSave apenas quando o usuário
+  // clicar em um dos botões de redirecionamento
+  const handlePaymentOption = () => {
+    if (savedToppings) {
+      onSave(savedToppings);
+    }
   };
 
   return (
@@ -62,6 +70,7 @@ export function ToppingsModal({
                   <Button
                     asChild
                     className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 text-lg"
+                    onClick={handlePaymentOption}
                   >
                     <a
                       href={payNowLink}
@@ -76,6 +85,7 @@ export function ToppingsModal({
                     asChild
                     className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 text-lg"
                     variant="outline"
+                    onClick={handlePaymentOption}
                   >
                     <a
                       href={scheduleLink}
@@ -95,4 +105,3 @@ export function ToppingsModal({
     </Dialog>
   );
 }
-
