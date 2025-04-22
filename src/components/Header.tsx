@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -26,12 +27,6 @@ export function Header() {
             </Link>
             <Link to="/produtos" className="text-gray-700 hover:text-acai-600 font-medium">
               Produtos
-            </Link>
-            <Link to="/sobre" className="text-gray-700 hover:text-acai-600 font-medium">
-              Sobre
-            </Link>
-            <Link to="/contato" className="text-gray-700 hover:text-acai-600 font-medium">
-              Contato
             </Link>
           </nav>
 
@@ -76,12 +71,6 @@ export function Header() {
               </Link>
               <Link to="/produtos" className="text-gray-700 hover:text-acai-600 font-medium px-2">
                 Produtos
-              </Link>
-              <Link to="/sobre" className="text-gray-700 hover:text-acai-600 font-medium px-2">
-                Sobre
-              </Link>
-              <Link to="/contato" className="text-gray-700 hover:text-acai-600 font-medium px-2">
-                Contato
               </Link>
             </nav>
           </div>
