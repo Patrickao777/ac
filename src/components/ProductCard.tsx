@@ -13,9 +13,10 @@ import { CartItemToppings } from "@/types";
 interface ProductCardProps {
   product: Product;
   buyLink?: string;
+  paymentLink?: string;
 }
 
-export function ProductCard({ product, buyLink }: ProductCardProps) {
+export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps) {
   const { addItem, updateToppings } = useCart();
   const [showToppings, setShowToppings] = useState(false);
 
@@ -138,6 +139,7 @@ export function ProductCard({ product, buyLink }: ProductCardProps) {
         onClose={() => setShowToppings(false)}
         onSave={handleSaveToppings}
         product={product}
+        paymentLink={paymentLink}
       />
     </>
   );

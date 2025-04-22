@@ -69,6 +69,8 @@ const ProductDetail = () => {
     return price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
 
+  const paymentLink = `https://payment.example.com/product/${product.id}`;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -413,6 +415,15 @@ const ProductDetail = () => {
         )}
       </main>
       <Footer />
+      
+      {/* Modal para complementos */}
+      <ToppingsModal
+        open={showToppings}
+        onClose={() => setShowToppings(false)}
+        onSave={handleSaveToppings}
+        product={product}
+        paymentLink={paymentLink}
+      />
     </div>
   );
 };
