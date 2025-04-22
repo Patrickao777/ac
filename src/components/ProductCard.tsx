@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -17,7 +16,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps) {
-  const { addItem, updateToppings } = useCart();
   const [showToppings, setShowToppings] = useState(false);
 
   const handleComprarClick = () => {
@@ -25,10 +23,7 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
-    addItem(product, 1);
-    updateToppings(product.id, toppings);
     setShowToppings(false);
-    // Aqui você pode redirecionar ou mostrar uma mensagem, se desejar.
   };
 
   const formatPrice = (price: number) => {
@@ -133,7 +128,6 @@ export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps)
           )}
         </CardFooter>
       </Card>
-      {/* Modal para complementos */}
       <ToppingsModal
         open={showToppings}
         onClose={() => setShowToppings(false)}
