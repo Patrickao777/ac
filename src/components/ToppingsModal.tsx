@@ -11,13 +11,18 @@ import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 
+// Payment links configuration - easy to update
+const PAYMENT_LINKS = {
+  immediate: "https://payment.example.com/immediate",
+  scheduled: "https://payment.example.com/scheduled"
+};
+
 interface ToppingsModalProps {
   open: boolean;
   onClose: () => void;
   onSave: (toppings: CartItemToppings) => void;
   product: Product;
   paymentLink?: string;
-  scheduleLink?: string;
 }
 
 export function ToppingsModal({
@@ -55,8 +60,9 @@ export function ToppingsModal({
   const handlePaymentOption = () => {
     if (savedToppings) {
       onSave(savedToppings);
-      // Adiciona o produto ao carrinho com os toppings
       addItem(product);
+      // Redirect to immediate payment link
+      window.location.href = paymentLink || PAYMENT_LINKS.immediate;
     }
   };
 
@@ -77,7 +83,6 @@ export function ToppingsModal({
     const formattedDate = format(selectedDate, "dd/MM/yyyy");
     if (savedToppings) {
       onSave(savedToppings);
-      // Adiciona o produto ao carrinho com os toppings
       addItem(product);
       
       toast({
@@ -85,6 +90,9 @@ export function ToppingsModal({
         description: `Entrega agendada para ${formattedDate} às ${selectedTime}`,
         variant: "default",
       });
+
+      // Redirect to scheduled payment link
+      window.location.href = PAYMENT_LINKS.scheduled;
       handleCloseModal();
     }
   };
