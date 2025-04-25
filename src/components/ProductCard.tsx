@@ -8,6 +8,7 @@ import { Product } from "@/types";
 import { getImageUrl } from "@/data/products";
 import { ToppingsModal } from "./ToppingsModal";
 import { CartItemToppings } from "@/types";
+import { useCart } from "@/context/CartContext";
 
 interface ProductCardProps {
   product: Product;
@@ -16,14 +17,16 @@ interface ProductCardProps {
   scheduleLink?: string;
 }
 
-export function ProductCard({ product, buyLink, paymentLink, scheduleLink }: ProductCardProps) {
+export function ProductCard({ product, buyLink, paymentLink }: ProductCardProps) {
   const [showToppings, setShowToppings] = useState(false);
+  const { updateToppings } = useCart();
 
   const handleComprarClick = () => {
     setShowToppings(true);
   };
 
   const handleSaveToppings = (toppings: CartItemToppings) => {
+    updateToppings(product.id, toppings);
     setShowToppings(false);
   };
 
@@ -32,7 +35,6 @@ export function ProductCard({ product, buyLink, paymentLink, scheduleLink }: Pro
   };
 
   const uniquePaymentLink = paymentLink || `https://payment.example.com/product/${product.id}`;
-  const uniqueScheduleLink = scheduleLink || product.scheduleLink;
 
   return (
     <>
@@ -115,13 +117,13 @@ export function ProductCard({ product, buyLink, paymentLink, scheduleLink }: Pro
           </Button>
         </CardFooter>
       </Card>
+      
       <ToppingsModal
         open={showToppings}
         onClose={() => setShowToppings(false)}
         onSave={handleSaveToppings}
         product={product}
         paymentLink={uniquePaymentLink}
-        scheduleLink={uniqueScheduleLink}
       />
     </>
   );
