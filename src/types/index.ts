@@ -1,4 +1,3 @@
-
 export interface Product {
   id: string;
   name: string;
@@ -15,6 +14,10 @@ export interface Product {
   isMostSold?: boolean;
   details?: string;
   scheduleLink?: string;
+  paymentLinks?: {
+    immediate: string;
+    scheduled: string;
+  };
 }
 
 export interface Category {

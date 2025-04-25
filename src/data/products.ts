@@ -15,7 +15,11 @@ export const products: Product[] = [
     rating: 5.0,
     reviews: 42,
     details: "Apenas 40 combos disponíveis! Não perca essa oportunidade!",
-    scheduleLink: "/agendar-entrega/acai-ovo"
+    scheduleLink: "/agendar-entrega/acai-ovo",
+    paymentLinks: {
+      immediate: "https://payment.example.com/acai-ovo/immediate",
+      scheduled: "https://payment.example.com/acai-ovo/scheduled"
+    }
   },
   {
     id: "combo-1",
@@ -31,7 +35,11 @@ export const products: Product[] = [
     rating: 4.9,
     reviews: 156,
     details: "Pague 1, Leve 2 (Apenas Retirada)",
-    scheduleLink: "/agendar-entrega/combo-1"
+    scheduleLink: "/agendar-entrega/combo-1",
+    paymentLinks: {
+      immediate: "https://payment.example.com/combo-1/immediate",
+      scheduled: "https://payment.example.com/combo-1/scheduled"
+    }
   },
   {
     id: "combo-2",

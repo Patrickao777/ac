@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ToppingsSelector } from "./ToppingsSelector";
@@ -11,8 +10,8 @@ import { Input } from "@/components/ui/input";
 import { useCart } from "@/context/CartContext";
 import { toast } from "@/hooks/use-toast";
 
-// Payment links configuration - easy to update
-const PAYMENT_LINKS = {
+// Default payment links if product-specific links are not provided
+const DEFAULT_PAYMENT_LINKS = {
   immediate: "https://payment.example.com/immediate",
   scheduled: "https://payment.example.com/scheduled"
 };
@@ -39,8 +38,10 @@ export function ToppingsModal({
   const [selectedTime, setSelectedTime] = useState("");
   const { addItem } = useCart();
 
-  // Links editáveis para redirecionamento
-  const payNowLink = paymentLink || `https://payment.example.com/product/${product.id}`;
+  // Get product-specific payment links or use defaults
+  const productPaymentLinks = product.paymentLinks || DEFAULT_PAYMENT_LINKS;
+  const immediatePaymentLink = paymentLink || productPaymentLinks.immediate;
+  const scheduledPaymentLink = product.paymentLinks?.scheduled || DEFAULT_PAYMENT_LINKS.scheduled;
 
   // Reset state when modal is closed
   const handleCloseModal = () => {
@@ -61,8 +62,8 @@ export function ToppingsModal({
     if (savedToppings) {
       onSave(savedToppings);
       addItem(product);
-      // Redirect to immediate payment link
-      window.location.href = paymentLink || PAYMENT_LINKS.immediate;
+      // Redirect to product-specific immediate payment link
+      window.location.href = immediatePaymentLink;
     }
   };
 
@@ -91,8 +92,8 @@ export function ToppingsModal({
         variant: "default",
       });
 
-      // Redirect to scheduled payment link
-      window.location.href = PAYMENT_LINKS.scheduled;
+      // Redirect to product-specific scheduled payment link
+      window.location.href = scheduledPaymentLink;
       handleCloseModal();
     }
   };
