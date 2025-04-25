@@ -9,7 +9,7 @@ import { CartProvider } from "@/context/CartContext";
 import Index from "./pages/Index";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetail from "./pages/ProductDetail";
-// import CartPage from "./pages/CartPage"; // removido
+import CartPage from "./pages/CartPage";
 import NotFound from "./pages/NotFound";
 
 // Create a client
@@ -28,8 +28,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Index />} />
                 <Route path="/produtos" element={<ProductsPage />} />
                 <Route path="/produto/:id" element={<ProductDetail />} />
-                {/* Página /carrinho removida */}
-                {/* <Route path="/carrinho" element={<CartPage />} /> */}
+                <Route path="/carrinho" element={<CartPage />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

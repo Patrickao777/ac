@@ -1,18 +1,6 @@
-
 import React, { createContext, useContext, useReducer, ReactNode } from 'react';
 import { toast } from "@/hooks/use-toast";
-import { Product } from "@/types";
-
-type CartItem = {
-  product: Product;
-  toppings?: {
-    coberturas: string[];
-    frutas: string[];
-    complementos: string[];
-    turbine: string[];
-    additionalDetails?: string;
-  };
-};
+import { Product, CartItem, CartItemToppings } from "@/types";
 
 type CartState = {
   items: CartItem[];
@@ -22,7 +10,7 @@ type CartState = {
 type CartAction =
   | { type: 'ADD_ITEM'; payload: { product: Product } }
   | { type: 'REMOVE_ITEM'; payload: string }
-  | { type: 'UPDATE_TOPPINGS'; payload: { productId: string; toppings: CartItem['toppings'] } }
+  | { type: 'UPDATE_TOPPINGS'; payload: { productId: string; toppings: CartItemToppings } }
   | { type: 'CLEAR_CART' };
 
 type CartContextType = {
@@ -32,7 +20,7 @@ type CartContextType = {
   totalPrice: number;
   addItem: (product: Product) => void;
   removeItem: (productId: string) => void;
-  updateToppings: (productId: string, toppings: CartItem['toppings']) => void;
+  updateToppings: (productId: string, toppings: CartItemToppings) => void;
   clearCart: () => void;
 };
 
@@ -52,7 +40,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       } else {
         return {
           ...state,
-          items: [...state.items, { product }],
+          items: [...state.items, { product, quantity: 1 }],
           total: state.total + product.price,
         };
       }
@@ -126,7 +114,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     dispatch({ type: 'REMOVE_ITEM', payload: productId });
   };
 
-  const updateToppings = (productId: string, toppings: CartItem['toppings']) => {
+  const updateToppings = (productId: string, toppings: CartItemToppings) => {
     dispatch({ type: 'UPDATE_TOPPINGS', payload: { productId, toppings } });
   };
 
@@ -159,4 +147,3 @@ export const useCart = (): CartContextType => {
   }
   return context;
 };
-
